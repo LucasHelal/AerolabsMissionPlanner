@@ -11,7 +11,10 @@
     <color name="white_grey">#f7f6f6</color>
     <color name="navigation_entry_color">#212121</color>
 
-    <color name="header_background">#068FD3</color>
+    <color name="header_background">#269926</color>
+    <color name="button_green">#80d941</color>
+    <color name="button_dark_orange">#f9591f</color>
+    <color name="button_light_orange">#f28f49</color>
 
     <color name="orange">#FAAF4C</color>
     <color name="ground_speed_label">#0a5242</color>
