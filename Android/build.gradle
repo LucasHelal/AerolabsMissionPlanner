@@ -65,7 +65,7 @@ android {
         minSdkVersion android_build_min_sdk_version
         targetSdkVersion android_build_target_sdk_version
         versionCode versionMajor * 100000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
-        versionName "Tower-v${versionMajor}.${versionMinor}.${versionPatch}"
+        versionName "Aerolabs-v${versionMajor}.${versionMinor}.${versionPatch}"
 
         buildConfigField "boolean", "WRITE_LOG_FILE", "true"
         buildConfigField "int", "LOG_FILE_LEVEL", "$logLevelDebug"
@@ -122,7 +122,7 @@ android {
             if (file != null && file.name.endsWith('.apk')) {
                 def buildType = variant.buildType.getName()
                 def versionCode = defaultConfig.versionCode
-                output.outputFile = new File(file.parent, "tower-${buildType}.${versionCode}.apk")
+                output.outputFile = new File(file.parent, "aerolabs-${buildType}.${versionCode}.apk")
             }
         }
     }
@@ -131,20 +131,20 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix ".debug.${versionBuild}"
-            resValue "string", "app_title", "Tower Dev"
+            resValue "string", "app_title", "Aerolabs Dev"
         }
 
         beta {
             signingConfig signingConfigs.release
             applicationIdSuffix ".beta"
             versionNameSuffix ".beta.${versionBuild}"
-            resValue "string", "app_title", "Tower Beta"
+            resValue "string", "app_title", "Aerolabs Beta"
             buildConfigField "boolean", "ENABLE_CRASHLYTICS", "true"
         }
 
         release {
             signingConfig signingConfigs.release
-            resValue "string", "app_title", "Tower"
+            resValue "string", "app_title", "Aerolabs"
             buildConfigField "boolean", "WRITE_LOG_FILE", "false"
             buildConfigField "boolean", "ENABLE_CRASHLYTICS", "true"
         }
