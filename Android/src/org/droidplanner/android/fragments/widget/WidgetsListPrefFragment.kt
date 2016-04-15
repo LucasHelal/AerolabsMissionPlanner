@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import org.droidplanner.android.R
-import org.droidplanner.android.fragments.SettingsFragment
+import org.droidplanner.android.fragments.DevModeSettingsFragment
 import org.droidplanner.android.utils.prefs.DroidPlannerPrefs
 
 /**
@@ -63,9 +63,9 @@ class WidgetsListPrefFragment : DialogFragment() {
             viewHolder.prefCheck?.isChecked = appPrefs.isWidgetEnabled(towerWidget)
             viewHolder.prefCheck?.setOnCheckedChangeListener { compoundButton, b ->
                 appPrefs.enableWidget(towerWidget, b)
-                lbm.sendBroadcast(Intent(SettingsFragment.ACTION_WIDGET_PREFERENCE_UPDATED)
-                        .putExtra(SettingsFragment.EXTRA_ADD_WIDGET, b)
-                        .putExtra(SettingsFragment.EXTRA_WIDGET_PREF_KEY, towerWidget.prefKey))
+                lbm.sendBroadcast(Intent(DevModeSettingsFragment.ACTION_WIDGET_PREFERENCE_UPDATED)
+                        .putExtra(DevModeSettingsFragment.EXTRA_ADD_WIDGET, b)
+                        .putExtra(DevModeSettingsFragment.EXTRA_WIDGET_PREF_KEY, towerWidget.prefKey))
             }
 
             viewHolder.prefInfo?.setOnClickListener { viewHolder?.prefCheck?.toggle() }

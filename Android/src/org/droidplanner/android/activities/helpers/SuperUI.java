@@ -35,7 +35,7 @@ import org.droidplanner.android.R;
 import org.droidplanner.android.dialogs.SlideToUnlockDialog;
 import org.droidplanner.android.dialogs.SupportYesNoDialog;
 import org.droidplanner.android.dialogs.SupportYesNoWithPrefsDialog;
-import org.droidplanner.android.fragments.SettingsFragment;
+import org.droidplanner.android.fragments.DevModeSettingsFragment;
 import org.droidplanner.android.fragments.actionbar.VehicleStatusFragment;
 import org.droidplanner.android.proxy.mission.MissionProxy;
 import org.droidplanner.android.utils.Utils;
@@ -56,7 +56,7 @@ public abstract class SuperUI extends AppCompatActivity implements DroidPlannerA
     static {
         superIntentFilter.addAction(AttributeEvent.STATE_CONNECTED);
         superIntentFilter.addAction(AttributeEvent.STATE_DISCONNECTED);
-        superIntentFilter.addAction(SettingsFragment.ACTION_ADVANCED_MENU_UPDATED);
+        superIntentFilter.addAction(DevModeSettingsFragment.ACTION_ADVANCED_MENU_UPDATED);
     }
 
     private final BroadcastReceiver superReceiver = new BroadcastReceiver() {
@@ -72,7 +72,7 @@ public abstract class SuperUI extends AppCompatActivity implements DroidPlannerA
                     onDroneDisconnected();
                     break;
 
-                case SettingsFragment.ACTION_ADVANCED_MENU_UPDATED:
+                case DevModeSettingsFragment.ACTION_ADVANCED_MENU_UPDATED:
                     supportInvalidateOptionsMenu();
                     break;
             }
@@ -173,7 +173,7 @@ public abstract class SuperUI extends AppCompatActivity implements DroidPlannerA
         mAppPrefs = new DroidPlannerPrefs(context);
         unitSystem = UnitManager.getUnitSystem(context);
 
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences_dev_mode_on, false);
 
 		/*
          * Used to supplant wake lock acquisition (previously in

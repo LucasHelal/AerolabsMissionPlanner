@@ -27,7 +27,7 @@ import com.o3dr.services.android.lib.util.MathUtils;
 import org.beyene.sius.unit.length.LengthUnit;
 import org.droidplanner.android.R;
 import org.droidplanner.android.dialogs.SelectionListDialog;
-import org.droidplanner.android.fragments.SettingsFragment;
+import org.droidplanner.android.fragments.DevModeSettingsFragment;
 import org.droidplanner.android.fragments.helpers.ApiListenerFragment;
 import org.droidplanner.android.utils.Utils;
 import org.droidplanner.android.utils.prefs.DroidPlannerPrefs;
@@ -53,8 +53,8 @@ public class ActionBarTelemFragment extends ApiListenerFragment {
         eventFilter.addAction(AttributeEvent.TYPE_UPDATED);
         eventFilter.addAction(AttributeEvent.ALTITUDE_UPDATED);
 
-        eventFilter.addAction(SettingsFragment.ACTION_PREF_HDOP_UPDATE);
-        eventFilter.addAction(SettingsFragment.ACTION_PREF_UNIT_SYSTEM_UPDATE);
+        eventFilter.addAction(DevModeSettingsFragment.ACTION_PREF_HDOP_UPDATE);
+        eventFilter.addAction(DevModeSettingsFragment.ACTION_PREF_UNIT_SYSTEM_UPDATE);
 
         eventFilter.addAction(DroidPlannerPrefs.ACTION_PREF_RETURN_TO_ME_UPDATED);
         eventFilter.addAction(AttributeEvent.RETURN_TO_ME_STATE_UPDATE);
@@ -103,11 +103,11 @@ public class ActionBarTelemFragment extends ApiListenerFragment {
                     updateFlightModeTelem();
                     break;
 
-                case SettingsFragment.ACTION_PREF_HDOP_UPDATE:
+                case DevModeSettingsFragment.ACTION_PREF_HDOP_UPDATE:
                     updateGpsTelem();
                     break;
 
-                case SettingsFragment.ACTION_PREF_UNIT_SYSTEM_UPDATE:
+                case DevModeSettingsFragment.ACTION_PREF_UNIT_SYSTEM_UPDATE:
                     updateHomeTelem();
                     break;
 

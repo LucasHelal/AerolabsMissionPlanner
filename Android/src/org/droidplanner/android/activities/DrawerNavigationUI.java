@@ -15,11 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
+import org.droidplanner.android.DroidPlannerApp;
 import org.droidplanner.android.R;
 import org.droidplanner.android.activities.helpers.SuperUI;
-import org.droidplanner.android.fragments.SettingsFragment;
+import org.droidplanner.android.fragments.DevModeSettingsFragment;
 import org.droidplanner.android.fragments.control.BaseFlightControlFragment;
 import org.droidplanner.android.view.SlidingDrawer;
 
@@ -27,7 +27,7 @@ import org.droidplanner.android.view.SlidingDrawer;
  * This abstract activity provides its children access to a navigation drawer
  * interface.
  */
-public abstract class DrawerNavigationUI extends SuperUI implements SlidingDrawer.OnDrawerOpenListener, SlidingDrawer.OnDrawerCloseListener, NavigationView.OnNavigationItemSelectedListener {
+public abstract class DrawerNavigationUI extends SuperUI implements SlidingDrawer.OnDrawerOpenListener, SlidingDrawer.OnDrawerCloseListener, NavigationView.OnNavigationItemSelectedListener, DroidPlannerApp.DevModeListener {
 
     /**
      * Activates the navigation drawer when the home button is clicked.
@@ -97,8 +97,8 @@ public abstract class DrawerNavigationUI extends SuperUI implements SlidingDrawe
         switch (requestCode) {
             case BaseFlightControlFragment.FOLLOW_SETTINGS_UPDATE:
                 LocalBroadcastManager.getInstance(getApplicationContext())
-                        .sendBroadcast(new Intent(SettingsFragment.ACTION_LOCATION_SETTINGS_UPDATED)
-                                .putExtra(SettingsFragment.EXTRA_RESULT_CODE, resultCode));
+                        .sendBroadcast(new Intent(DevModeSettingsFragment.ACTION_LOCATION_SETTINGS_UPDATED)
+                                .putExtra(DevModeSettingsFragment.EXTRA_RESULT_CODE, resultCode));
                 break;
 
             default:
@@ -286,4 +286,14 @@ public abstract class DrawerNavigationUI extends SuperUI implements SlidingDrawe
     }
 
     protected abstract int getNavigationDrawerMenuItemId();
+
+    @Override
+    public void onDevModeStart() {
+        navigationView.getMenu().setGroupVisible(R.id.preference_screens, true);
+    }
+
+    @Override
+    public void onDevModeStop() {
+        navigationView.getMenu().setGroupVisible(R.id.preference_screens, false);
+    }
 }

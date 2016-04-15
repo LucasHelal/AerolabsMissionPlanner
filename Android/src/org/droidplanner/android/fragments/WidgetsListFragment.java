@@ -20,19 +20,17 @@ import org.droidplanner.android.fragments.widget.TowerWidget;
 import org.droidplanner.android.fragments.widget.TowerWidgets;
 import org.droidplanner.android.utils.prefs.DroidPlannerPrefs;
 
-import timber.log.Timber;
-
 public class WidgetsListFragment extends Fragment {
 
-    private static final IntentFilter filter = new IntentFilter(SettingsFragment.ACTION_WIDGET_PREFERENCE_UPDATED);
+    private static final IntentFilter filter = new IntentFilter(DevModeSettingsFragment.ACTION_WIDGET_PREFERENCE_UPDATED);
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
-                case SettingsFragment.ACTION_WIDGET_PREFERENCE_UPDATED:
-                    final String widgetPrefKey = intent.getStringExtra(SettingsFragment.EXTRA_WIDGET_PREF_KEY);
-                    final boolean addWidget = intent.getBooleanExtra(SettingsFragment.EXTRA_ADD_WIDGET, false);
+                case DevModeSettingsFragment.ACTION_WIDGET_PREFERENCE_UPDATED:
+                    final String widgetPrefKey = intent.getStringExtra(DevModeSettingsFragment.EXTRA_WIDGET_PREF_KEY);
+                    final boolean addWidget = intent.getBooleanExtra(DevModeSettingsFragment.EXTRA_ADD_WIDGET, false);
 
                     final TowerWidgets widget = TowerWidgets.getWidgetByPrefKey(widgetPrefKey);
                     if(widget != null){

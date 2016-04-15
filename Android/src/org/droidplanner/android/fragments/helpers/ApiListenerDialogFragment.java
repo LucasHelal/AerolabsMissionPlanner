@@ -11,7 +11,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.o3dr.android.client.Drone;
 
 import org.droidplanner.android.DroidPlannerApp;
-import org.droidplanner.android.fragments.SettingsFragment;
+import org.droidplanner.android.fragments.DevModeSettingsFragment;
 import org.droidplanner.android.proxy.mission.MissionProxy;
 import org.droidplanner.android.utils.prefs.DroidPlannerPrefs;
 import org.droidplanner.android.utils.unit.UnitManager;
@@ -28,14 +28,14 @@ public abstract class ApiListenerDialogFragment extends DialogFragment implement
 
     private static final IntentFilter filter = new IntentFilter();
     static {
-        filter.addAction(SettingsFragment.ACTION_PREF_UNIT_SYSTEM_UPDATE);
+        filter.addAction(DevModeSettingsFragment.ACTION_PREF_UNIT_SYSTEM_UPDATE);
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             switch(intent.getAction()){
-                case SettingsFragment.ACTION_PREF_UNIT_SYSTEM_UPDATE:
+                case DevModeSettingsFragment.ACTION_PREF_UNIT_SYSTEM_UPDATE:
                     setupUnitProviders(context);
                     break;
             }

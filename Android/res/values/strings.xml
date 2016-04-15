@@ -586,5 +586,8 @@
     <string name="uvc_device_refresh">Refresh</string>
     <string name="uvc_device_no_device">No UVC device found</string>
 
+    <!-- Dev Mode Strings -->
+    <string name="dev_mode_title">Enter Developer Mode for enabling additional application features.</string>
+    <string name="dev_mode_enter">Enter</string>
 
 </resources>

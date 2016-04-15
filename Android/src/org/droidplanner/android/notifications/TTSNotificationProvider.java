@@ -27,7 +27,7 @@ import com.o3dr.services.android.lib.drone.property.State;
 import com.o3dr.services.android.lib.drone.property.VehicleMode;
 
 import org.droidplanner.android.R;
-import org.droidplanner.android.fragments.SettingsFragment;
+import org.droidplanner.android.fragments.DevModeSettingsFragment;
 import org.droidplanner.android.utils.prefs.DroidPlannerPrefs;
 
 import java.util.ArrayList;
@@ -209,7 +209,7 @@ public class TTSNotificationProvider implements OnInitListener,
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
 
-            if (SettingsFragment.ACTION_UPDATED_STATUS_PERIOD.equals(action)) {
+            if (DevModeSettingsFragment.ACTION_UPDATED_STATUS_PERIOD.equals(action)) {
                 scheduleWatchdog();
             } else if (ACTION_SPEAK_MESSAGE.equals(action)) {
                 String msg = intent.getStringExtra(EXTRA_MESSAGE_TO_SPEAK);
@@ -400,7 +400,7 @@ public class TTSNotificationProvider implements OnInitListener,
                 // Register the broadcast receiver
                 final IntentFilter intentFilter = new IntentFilter();
                 intentFilter.addAction(ACTION_SPEAK_MESSAGE);
-                intentFilter.addAction(SettingsFragment.ACTION_UPDATED_STATUS_PERIOD);
+                intentFilter.addAction(DevModeSettingsFragment.ACTION_UPDATED_STATUS_PERIOD);
 
                 LocalBroadcastManager.getInstance(context).registerReceiver(
                         mSpeechIntervalUpdateReceiver, intentFilter);

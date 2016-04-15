@@ -23,8 +23,7 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.o3dr.services.android.lib.util.googleApi.GoogleApiClientManager;
 
 import org.droidplanner.android.R;
-import org.droidplanner.android.activities.DrawerNavigationUI;
-import org.droidplanner.android.fragments.SettingsFragment;
+import org.droidplanner.android.fragments.DevModeSettingsFragment;
 import org.droidplanner.android.fragments.control.BaseFlightControlFragment;
 
 import java.lang.ref.WeakReference;
@@ -116,8 +115,8 @@ public class CheckLocationSettings implements GoogleApiClientManager.ManagerList
 
     public void onReceive(Intent intent) {
         switch (intent.getAction()) {
-            case SettingsFragment.ACTION_LOCATION_SETTINGS_UPDATED:
-                final int resultCode = intent.getIntExtra(SettingsFragment.EXTRA_RESULT_CODE, Activity.RESULT_OK);
+            case DevModeSettingsFragment.ACTION_LOCATION_SETTINGS_UPDATED:
+                final int resultCode = intent.getIntExtra(DevModeSettingsFragment.EXTRA_RESULT_CODE, Activity.RESULT_OK);
                 switch (resultCode) {
                     case Activity.RESULT_OK:
                         // All required changes were successfully made. Try to acquire user location again

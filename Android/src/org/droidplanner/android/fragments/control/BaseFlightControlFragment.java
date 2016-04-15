@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,9 +15,7 @@ import com.o3dr.services.android.lib.drone.attribute.AttributeType;
 import com.o3dr.services.android.lib.gcs.follow.FollowState;
 import com.o3dr.services.android.lib.gcs.follow.FollowType;
 
-import org.droidplanner.android.activities.DrawerNavigationUI;
-import org.droidplanner.android.fragments.FlightDataFragment;
-import org.droidplanner.android.fragments.SettingsFragment;
+import org.droidplanner.android.fragments.DevModeSettingsFragment;
 import org.droidplanner.android.fragments.helpers.ApiListenerFragment;
 import org.droidplanner.android.utils.location.CheckLocationSettings;
 
@@ -35,14 +32,14 @@ public abstract class BaseFlightControlFragment extends ApiListenerFragment impl
     private static final long FOLLOW_LOCATION_UPDATE_FASTEST_INTERVAL = 5000; // ms
     private static final float FOLLOW_LOCATION_UPDATE_MIN_DISPLACEMENT = 0; // m
 
-    private static final IntentFilter filter = new IntentFilter(SettingsFragment.ACTION_LOCATION_SETTINGS_UPDATED);
+    private static final IntentFilter filter = new IntentFilter(DevModeSettingsFragment.ACTION_LOCATION_SETTINGS_UPDATED);
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             switch(intent.getAction()){
-                case SettingsFragment.ACTION_LOCATION_SETTINGS_UPDATED:
-                    final int resultCode = intent.getIntExtra(SettingsFragment.EXTRA_RESULT_CODE, Activity.RESULT_OK);
+                case DevModeSettingsFragment.ACTION_LOCATION_SETTINGS_UPDATED:
+                    final int resultCode = intent.getIntExtra(DevModeSettingsFragment.EXTRA_RESULT_CODE, Activity.RESULT_OK);
                     switch (resultCode) {
                         case Activity.RESULT_OK:
                             // All required changes were successfully made. Enable follow me.

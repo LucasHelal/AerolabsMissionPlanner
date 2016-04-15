@@ -47,6 +47,8 @@ public class DroidPlannerApp extends MultiDexApplication implements DroneListene
 
     private static final String TAG = DroidPlannerApp.class.getSimpleName();
 
+    private static final String DEV_PASSWORD = "qntcuoe#1989";
+
     public static final String ACTION_TOGGLE_DRONE_CONNECTION = Utils.PACKAGE_NAME
             + ".ACTION_TOGGLE_DRONE_CONNECTION";
     public static final String EXTRA_ESTABLISH_CONNECTION = "extra_establish_connection";
@@ -125,6 +127,7 @@ public class DroidPlannerApp extends MultiDexApplication implements DroneListene
     private final List<ApiListener> apiListeners = new ArrayList<ApiListener>();
 
     private Thread.UncaughtExceptionHandler exceptionHandler;
+    private DevModeListener onDevModeStartListener;
 
     private ControlTower controlTower;
     private Drone drone;
@@ -133,8 +136,15 @@ public class DroidPlannerApp extends MultiDexApplication implements DroneListene
     private DroidPlannerPrefs dpPrefs;
     private LocalBroadcastManager lbm;
     private MapDownloader mapDownloader;
+    private boolean devMode;
 
     private LogToFileTree logToFileTree;
+
+    public interface DevModeListener {
+        void onDevModeStart();
+
+        void onDevModeStop();
+    }
 
     @Override
     public void onCreate() {
@@ -145,6 +155,7 @@ public class DroidPlannerApp extends MultiDexApplication implements DroneListene
         dpPrefs = new DroidPlannerPrefs(context);
         lbm = LocalBroadcastManager.getInstance(context);
         mapDownloader = new MapDownloader(context);
+        devMode = false;
 
         controlTower = new ControlTower(context);
         drone = new Drone(context);
@@ -411,5 +422,27 @@ public class DroidPlannerApp extends MultiDexApplication implements DroneListene
         if(logToFileTree != null) {
             logToFileTree.stopLoggingThread();
         }
+    }
+
+    public boolean tryStartDevMode(String password) {
+        if (!devMode) {
+            if (password.equals(DEV_PASSWORD)) {
+                devMode = true;
+                onDevModeStartListener.onDevModeStart();
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void stopDevMode() {
+        devMode = false;
+        onDevModeStartListener.onDevModeStop();
+    }
+
+    public boolean isDevModeOn() {
+        return devMode;
     }
 }
