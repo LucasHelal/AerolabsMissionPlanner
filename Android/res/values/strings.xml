@@ -587,7 +587,9 @@
     <string name="uvc_device_no_device">No UVC device found</string>
 
     <!-- Dev Mode Strings -->
-    <string name="dev_mode_title">Enter Developer Mode for enabling additional application features.</string>
+    <string name="dev_mode_title">Developer Mode</string>
     <string name="dev_mode_enter">Enter</string>
+    <string name="dev_mode_enter_failed">Wrong Password.</string>
+    <string name="dev_mode_enter_success">Developer Mode activated.</string>
 
 </resources>

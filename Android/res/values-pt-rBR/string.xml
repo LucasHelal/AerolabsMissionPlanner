@@ -585,7 +585,9 @@
     <string name="uvc_device_no_device">Nenhum dispositivo UVC encontrado</string>
 
     <!-- Dev Mode Strings -->
-    <string name="dev_mode_title">Entre no modo desenvolvedor para habilitar recursos adicionais da aplicação.</string>
+    <string name="dev_mode_title">Modo Desenvolvedor</string>
     <string name="dev_mode_enter">Entrar</string>
+    <string name="dev_mode_enter_failed">Senha Incorreta.</string>
+    <string name="dev_mode_enter_success">Modo Desenvolvedor ativado.</string>
 
 </resources>

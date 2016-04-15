@@ -127,7 +127,7 @@ public class DroidPlannerApp extends MultiDexApplication implements DroneListene
     private final List<ApiListener> apiListeners = new ArrayList<ApiListener>();
 
     private Thread.UncaughtExceptionHandler exceptionHandler;
-    private DevModeListener onDevModeStartListener;
+    private DevModeListener devModeListener;
 
     private ControlTower controlTower;
     private Drone drone;
@@ -424,12 +424,20 @@ public class DroidPlannerApp extends MultiDexApplication implements DroneListene
         }
     }
 
+    public void registerDevModeListener(DevModeListener devModeListener) {
+        this.devModeListener = devModeListener;
+    }
+
     public boolean tryStartDevMode(String password) {
         if (!devMode) {
             if (password.equals(DEV_PASSWORD)) {
                 devMode = true;
-                onDevModeStartListener.onDevModeStart();
+                Toast.makeText(getApplicationContext(), R.string.dev_mode_enter_success,
+                        Toast.LENGTH_SHORT).show();
+                devModeListener.onDevModeStart();
             } else {
+                Toast.makeText(getApplicationContext(), R.string.dev_mode_enter_failed,
+                        Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
@@ -439,7 +447,7 @@ public class DroidPlannerApp extends MultiDexApplication implements DroneListene
 
     public void stopDevMode() {
         devMode = false;
-        onDevModeStartListener.onDevModeStop();
+        devModeListener.onDevModeStop();
     }
 
     public boolean isDevModeOn() {

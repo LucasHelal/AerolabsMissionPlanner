@@ -225,9 +225,14 @@ public abstract class DrawerNavigationUI extends SuperUI implements SlidingDrawe
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         updateNavigationDrawer();
+        if (dpApp.isDevModeOn()) {
+            navigationView.getMenu().setGroupVisible(R.id.preference_screens, true);
+        } else {
+            navigationView.getMenu().setGroupVisible(R.id.preference_screens, false);
+        }
     }
 
     private void updateNavigationDrawer() {

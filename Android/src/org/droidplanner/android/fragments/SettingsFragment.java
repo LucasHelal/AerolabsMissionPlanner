@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.droidplanner.android.DroidPlannerApp;
 import org.droidplanner.android.R;
@@ -23,7 +24,16 @@ public class SettingsFragment extends Fragment {
 
         password = (EditText) returnView.findViewById(R.id.dev_mode_password);
         enterButton = (Button) returnView.findViewById(R.id.button_enter_dev_mode);
+        dpApp = (DroidPlannerApp) getActivity().getApplication();
+
+        enterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dpApp.tryStartDevMode(password.getText().toString());
+            }
+        });
 
         return returnView;
     }
+
 }

@@ -1,6 +1,5 @@
 package org.droidplanner.android.activities;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 
@@ -10,22 +9,30 @@ import org.droidplanner.android.fragments.DevModeSettingsFragment;
 import org.droidplanner.android.fragments.SettingsFragment;
 
 /**
- * This activity holds the DevModeSettingsFragment.
+ * This activity holds the SettingsFragment.
  */
 public class SettingsActivity extends DrawerNavigationUI implements DroidPlannerApp.DevModeListener {
+
+	private FragmentManager fm;
+	private SettingsFragment settingsFragment;
+	private DevModeSettingsFragment devModeSettingsFragment;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 
-		FragmentManager fm = getFragmentManager();
-		Fragment settingsFragment = fm.findFragmentById(R.id.fragment_settings_layout);
-		if (settingsFragment == null) {
-			//settingsFragment = new DevModeSettingsFragment();
-			settingsFragment = new SettingsFragment();
+		fm = getFragmentManager();
+		devModeSettingsFragment = new DevModeSettingsFragment();
+		settingsFragment = new SettingsFragment();
+
+		if (dpApp.isDevModeOn()) {
+			fm.beginTransaction().add(R.id.fragment_settings_layout, devModeSettingsFragment).commit();
+		} else {
 			fm.beginTransaction().add(R.id.fragment_settings_layout, settingsFragment).commit();
 		}
+
+		dpApp.registerDevModeListener(this);
 	}
 
     @Override
@@ -46,10 +53,12 @@ public class SettingsActivity extends DrawerNavigationUI implements DroidPlanner
 	@Override
 	public void onDevModeStart() {
 		super.onDevModeStart();
+		fm.beginTransaction().replace(R.id.fragment_settings_layout, devModeSettingsFragment).commit();
 	}
 
 	@Override
 	public void onDevModeStop() {
 		super.onDevModeStop();
+		fm.beginTransaction().replace(R.id.fragment_settings_layout, settingsFragment).commit();
 	}
 }
