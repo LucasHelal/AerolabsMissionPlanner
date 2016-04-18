@@ -26,13 +26,6 @@
                 android:drawableTop="@drawable/ic_arm_active"
                 android:text="@string/mission_control_arm"/>
 
-            <Button
-                android:id="@+id/mc_dronieBtn"
-                style="@style/flightControlButton.Row"
-                android:drawableTop="@drawable/ic_dronie_active"
-                android:text="@string/mission_control_dronie"
-                />
-
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

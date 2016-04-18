@@ -28,21 +28,14 @@ import com.o3dr.services.android.lib.model.SimpleCommandListener;
 import org.droidplanner.android.R;
 import org.droidplanner.android.activities.helpers.SuperUI;
 import org.droidplanner.android.dialogs.SlideToUnlockDialog;
-import org.droidplanner.android.dialogs.SupportYesNoDialog;
-import org.droidplanner.android.dialogs.SupportYesNoWithPrefsDialog;
-import org.droidplanner.android.fragments.FlightDataFragment;
-import org.droidplanner.android.proxy.mission.MissionProxy;
 import org.droidplanner.android.utils.analytics.GAUtils;
-import org.droidplanner.android.utils.prefs.DroidPlannerPrefs;
 
 /**
  * Provide functionality for flight action button specific to copters.
  */
-public class CopterFlightControlFragment extends BaseFlightControlFragment implements SupportYesNoDialog.Listener {
+public class CopterFlightControlFragment extends BaseFlightControlFragment {
 
     private static final String ACTION_FLIGHT_ACTION_BUTTON = "Copter flight action button";
-
-    private static final String DRONIE_CREATION_DIALOG_TAG = "Confirm dronie creation";
 
     private static final IntentFilter eventFilter = new IntentFilter();
 
@@ -136,8 +129,6 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment imple
         }
     };
 
-    private MissionProxy missionProxy;
-
     private View mDisconnectedButtons;
     private View mDisarmedButtons;
     private View mArmedButtons;
@@ -196,15 +187,11 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment imple
 
         followBtn = (Button) view.findViewById(R.id.mc_follow);
         followBtn.setOnClickListener(this);
-
-        final Button dronieBtn = (Button) view.findViewById(R.id.mc_dronieBtn);
-        dronieBtn.setOnClickListener(this);
     }
 
     @Override
     public void onApiConnected() {
         super.onApiConnected();
-        missionProxy = getMissionProxy();
 
         setupButtonsByFlightState();
         updateFlightModeButtons();
@@ -282,11 +269,6 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment imple
                 toggleFollowMe();
                 break;
 
-            case R.id.mc_dronieBtn:
-                getDronieConfirmation();
-                eventBuilder.setAction(ACTION_FLIGHT_ACTION_BUTTON).setLabel("Dronie uploaded");
-                break;
-
             default:
                 eventBuilder = null;
                 break;
@@ -296,17 +278,6 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment imple
             GAUtils.sendEvent(eventBuilder);
         }
 
-    }
-
-    private void getDronieConfirmation() {
-        SupportYesNoWithPrefsDialog ynd = SupportYesNoWithPrefsDialog.newInstance(getActivity()
-                        .getApplicationContext(), DRONIE_CREATION_DIALOG_TAG,
-                getString(R.string.pref_dronie_creation_title),
-                getString(R.string.pref_dronie_creation_message), DroidPlannerPrefs.PREF_WARN_ON_DRONIE_CREATION, this);
-
-        if (ynd != null) {
-            ynd.show(getChildFragmentManager(), DRONIE_CREATION_DIALOG_TAG);
-        }
     }
 
     private void getTakeOffConfirmation() {
@@ -472,17 +443,4 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment imple
         return droneState.isArmed() && droneState.isFlying();
     }
 
-    @Override
-    public void onDialogYes(String dialogTag) {
-        switch (dialogTag) {
-            case DRONIE_CREATION_DIALOG_TAG:
-                missionProxy.makeAndUploadDronie(getDrone());
-                break;
-        }
-    }
-
-    @Override
-    public void onDialogNo(String dialogTag) {
-
-    }
 }
