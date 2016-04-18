@@ -21,10 +21,12 @@ import com.o3dr.services.android.lib.drone.property.Gps;
 import com.o3dr.services.android.lib.drone.property.Home;
 import com.o3dr.services.android.lib.drone.property.Signal;
 import com.o3dr.services.android.lib.drone.property.State;
+import com.o3dr.services.android.lib.drone.property.VehicleMode;
 import com.o3dr.services.android.lib.gcs.returnToMe.ReturnToMeState;
 import com.o3dr.services.android.lib.util.MathUtils;
 
 import org.beyene.sius.unit.length.LengthUnit;
+import org.droidplanner.android.DroidPlannerApp;
 import org.droidplanner.android.R;
 import org.droidplanner.android.dialogs.SelectionListDialog;
 import org.droidplanner.android.fragments.DevModeSettingsFragment;
@@ -209,7 +211,10 @@ public class ActionBarTelemFragment extends ApiListenerFragment {
                 //Launch dialog to allow the user to select vehicle modes
                 final Drone drone = getDrone();
 
-                final SelectionListDialog selectionDialog = SelectionListDialog.newInstance(new FlightModeAdapter(context, drone));
+                DroidPlannerApp dpApp = (DroidPlannerApp) getActivity().getApplication();
+                final SelectionListDialog selectionDialog = SelectionListDialog.newInstance(
+                        new FlightModeAdapter(context, drone, dpApp.isDevModeOn()));
+
                 Utils.showDialog(selectionDialog, getChildFragmentManager(), "Flight modes selection", true);
             }
         });
