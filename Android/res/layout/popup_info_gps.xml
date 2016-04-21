@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@android:color/background_light">
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,7 +22,7 @@
             android:textColor="@android:color/black"
             android:text="@string/empty_content"
             android:textStyle="bold"
-            android:textSize="@dimen/info_bar_text_size"/>
+            android:textSize="@dimen/info_bar_text_size" />
 
         <TextView
             android:id="@+id/bar_gps_satno"
