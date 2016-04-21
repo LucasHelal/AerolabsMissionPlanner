@@ -116,16 +116,6 @@
                 android:text="@string/mission_control_auto"
                 tools:ignore="ContentDescription"/>
 
-            <Button
-                android:id="@+id/mc_follow"
-                style="@style/flightControlButton.Row"
-                android:layout_width="75dp"
-                android:layout_height="match_parent"
-                android:drawableTop="@drawable/ic_follow_active"
-                android:text="@string/mission_control_follow"
-                android:layout_weight="1"
-                tools:ignore="ContentDescription"/>
-
             <ImageView
                 android:id="@+id/reveal_toggler"
                 android:layout_width="36dp"

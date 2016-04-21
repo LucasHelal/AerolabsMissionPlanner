@@ -114,7 +114,6 @@ public class PlaneFlightControlFragment extends BaseFlightControlFragment {
                     /* FALL - THROUGH */
                 case AttributeEvent.FOLLOW_UPDATE:
                     updateFlightModeButtons();
-                    updateFollowButton();
                     break;
             }
         }
@@ -125,7 +124,6 @@ public class PlaneFlightControlFragment extends BaseFlightControlFragment {
     private View armedButtons;
     private View mInFlightButtons;
 
-    private Button followBtn;
     private Button homeBtn;
     private Button pauseBtn;
     private Button autoBtn;
@@ -168,29 +166,6 @@ public class PlaneFlightControlFragment extends BaseFlightControlFragment {
 
         autoBtn = (Button) view.findViewById(R.id.mc_autoBtn);
         autoBtn.setOnClickListener(this);
-
-        followBtn = (Button) view.findViewById(R.id.mc_follow);
-        followBtn.setOnClickListener(this);
-    }
-
-    private void updateFollowButton() {
-        final FollowState followState = getDrone().getAttribute(AttributeType.FOLLOW_STATE);
-        if (followState == null)
-            return;
-
-        switch (followState.getState()) {
-            case FollowState.STATE_START:
-                followBtn.setBackgroundColor(orangeColor);
-                break;
-            case FollowState.STATE_RUNNING:
-                followBtn.setActivated(true);
-                followBtn.setBackgroundResource(R.drawable.flight_action_row_bg_selector);
-                break;
-            default:
-                followBtn.setActivated(false);
-                followBtn.setBackgroundResource(R.drawable.flight_action_row_bg_selector);
-                break;
-        }
     }
 
     private void updateFlightModeButtons() {
@@ -276,7 +251,6 @@ public class PlaneFlightControlFragment extends BaseFlightControlFragment {
 
         setupButtonsByFlightState();
         updateFlightModeButtons();
-        updateFollowButton();
         getBroadcastManager().registerReceiver(eventReceiver, eventFilter);
     }
 
@@ -343,11 +317,6 @@ public class PlaneFlightControlFragment extends BaseFlightControlFragment {
                 VehicleApi.getApi(drone).setVehicleMode(VehicleMode.PLANE_AUTO);
                 eventBuilder.setAction(ACTION_FLIGHT_ACTION_BUTTON).setLabel(VehicleMode.PLANE_AUTO.getLabel());
                 break;
-
-            case R.id.mc_follow: {
-                toggleFollowMe();
-                break;
-            }
 
             default:
                 eventBuilder = null;

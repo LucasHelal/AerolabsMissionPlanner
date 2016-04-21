@@ -112,7 +112,6 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment {
                     /* FALL - THROUGH */
                 case AttributeEvent.FOLLOW_UPDATE:
                     updateFlightModeButtons();
-                    updateFollowButton();
                     break;
 
                 case AttributeEvent.MISSION_DRONIE_CREATED:
@@ -134,7 +133,6 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment {
     private View mArmedButtons;
     private View mInFlightButtons;
 
-    private Button followBtn;
     private Button homeBtn;
     private Button landBtn;
     private Button pauseBtn;
@@ -184,9 +182,6 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment {
 
         final Button takeoffInAuto = (Button) view.findViewById(R.id.mc_TakeoffInAutoBtn);
         takeoffInAuto.setOnClickListener(this);
-
-        followBtn = (Button) view.findViewById(R.id.mc_follow);
-        followBtn.setOnClickListener(this);
     }
 
     @Override
@@ -195,7 +190,6 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment {
 
         setupButtonsByFlightState();
         updateFlightModeButtons();
-        updateFollowButton();
 
         getBroadcastManager().registerReceiver(eventReceiver, eventFilter);
     }
@@ -263,10 +257,6 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment {
             case R.id.mc_TakeoffInAutoBtn:
                 getTakeOffInAutoConfirmation();
                 eventBuilder.setAction(ACTION_FLIGHT_ACTION_BUTTON).setLabel(VehicleMode.COPTER_AUTO.getLabel());
-                break;
-
-            case R.id.mc_follow:
-                toggleFollowMe();
                 break;
 
             default:
@@ -366,28 +356,6 @@ public class CopterFlightControlFragment extends BaseFlightControlFragment {
         landBtn.setActivated(false);
         pauseBtn.setActivated(false);
         autoBtn.setActivated(false);
-    }
-
-    private void updateFollowButton() {
-        FollowState followState = getDrone().getAttribute(AttributeType.FOLLOW_STATE);
-        if (followState == null)
-            return;
-
-        switch (followState.getState()) {
-            case FollowState.STATE_START:
-                followBtn.setBackgroundColor(orangeColor);
-                break;
-
-            case FollowState.STATE_RUNNING:
-                followBtn.setActivated(true);
-                followBtn.setBackgroundResource(R.drawable.flight_action_row_bg_selector);
-                break;
-
-            default:
-                followBtn.setActivated(false);
-                followBtn.setBackgroundResource(R.drawable.flight_action_row_bg_selector);
-                break;
-        }
     }
 
     private void resetButtonsContainerVisibility() {
