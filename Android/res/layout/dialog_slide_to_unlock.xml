@@ -36,7 +36,7 @@
             android:clickable="false"
             android:max="100"
             android:progressDrawable="@android:color/transparent"
-            android:thumb="@drawable/ic_unlock_slider"
+            android:thumb="@mipmap/ic_unlock_slider"
             android:id="@+id/unlock_slider"
             android:layout_gravity="center"
             android:thumbOffset="-1dp"
