@@ -259,6 +259,7 @@ public class FlightDataFragment extends ApiListenerFragment implements SlidingDr
 
         mSlidingPanel = (SlidingUpPanelLayout) view.findViewById(R.id.slidingPanelContainer);
         mSlidingPanel.setPanelSlideListener(slidingPanelListenerMgr);
+        mSlidingPanel.setSlidingEnabled(false);
         warningView = (TextView) view.findViewById(R.id.failsafeTextView);
 
         setupMapFragment();
@@ -344,13 +345,13 @@ public class FlightDataFragment extends ApiListenerFragment implements SlidingDr
         });
 
         // Add the mode info panel fragment
-        FlightModePanel flightModePanel = (FlightModePanel) fm.findFragmentById(R.id.sliding_drawer_content);
-        if (flightModePanel == null) {
-            flightModePanel = new FlightModePanel();
-            fm.beginTransaction()
-                    .add(R.id.sliding_drawer_content, flightModePanel)
-                    .commit();
-        }
+//        FlightModePanel flightModePanel = (FlightModePanel) fm.findFragmentById(R.id.sliding_drawer_content);
+//        if (flightModePanel == null) {
+//            flightModePanel = new FlightModePanel();
+//            fm.beginTransaction()
+//                    .add(R.id.sliding_drawer_content, flightModePanel)
+//                    .commit();
+//        }
     }
 
     public void updateActionbarShadow(int shadowHeight){
@@ -443,7 +444,7 @@ public class FlightDataFragment extends ApiListenerFragment implements SlidingDr
                 (api);
 
         if (isEnabled) {
-            mSlidingPanel.setSlidingEnabled(true);
+//            mSlidingPanel.setSlidingEnabled(true);
             mSlidingPanel.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
